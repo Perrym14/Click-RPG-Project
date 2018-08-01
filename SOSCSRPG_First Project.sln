@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOSCSRPG_First Project", "SOSCSRPG_First Project\SOSCSRPG_First Project.csproj", "{32BD73AA-A648-4552-A4FE-2AD112DB598B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{17459565-9D3A-440B-99D6-2351451A72D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{32BD73AA-A648-4552-A4FE-2AD112DB598B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32BD73AA-A648-4552-A4FE-2AD112DB598B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32BD73AA-A648-4552-A4FE-2AD112DB598B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17459565-9D3A-440B-99D6-2351451A72D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17459565-9D3A-440B-99D6-2351451A72D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17459565-9D3A-440B-99D6-2351451A72D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17459565-9D3A-440B-99D6-2351451A72D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
