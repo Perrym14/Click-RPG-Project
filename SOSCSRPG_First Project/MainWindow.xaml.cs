@@ -31,5 +31,9 @@ namespace SOSCSRPG_First_Project
 
             DataContext = _gameSession;
         }
-    }
+        private void ButtonBase_OnCLick(object sender, RoutedEventArgs e)
+        {
+            _gameSession.CurrentPlayer.ExperiencePoints = _gameSession.CurrentPlayer.ExperiencePoints + 10;
+        }
+    } 
 }
