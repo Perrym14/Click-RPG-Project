@@ -50,10 +50,37 @@
             <Button Grid.Row="6" Grid.Column="1" Content="Add XP" Click="ButtonBase_OnCLick"></Button>
         </Grid>
 
+        <Grid Grid.Row="1" Grid.Column="1" Background="Beige">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border 
+                Grid.Row="0" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
 
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
 
-        <Label Grid.Row="1" Grid.Column="1" Content="Game Data" Background="Beige"></Label>
+                    </Grid.RowDefinitions>
+                    
+                </Grid>
+                
+                
+                
+            </Border>
+            
+        </Grid>
+        
+        
         <Label Grid.Row="2" Grid.Column="0" Content="Inventory/Quests" Background="BurlyWood"></Label>
         <Label Grid.Row="2" Grid.Column="1" Content="Combat/Movement Controls" Background="Lavender"></Label>
         
