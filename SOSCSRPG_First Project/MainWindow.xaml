@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SOSCSRPG_First_Project"
         mc:Ignorable="d"
+        FontSize="11pt"
         Title="MainWindow" Height="768" Width="1024">
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -60,7 +62,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Border 
                 Grid.Row="0" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
 
@@ -71,18 +73,32 @@
                         <RowDefinition Height="Auto"/>
 
                     </Grid.RowDefinitions>
-                    
+
+                    <TextBlock
+                        Grid.Row="0" HorizontalAlignment="Center" Text="{Binding CurrentLocation.Name}">
+                    </TextBlock>
+
+                    <TextBlock 
+                        Grid.Row="2" HorizontalAlignment="Center" Text="{Binding CurrentLocation.Description}">
+                    </TextBlock>
+
+                    <Image Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Height="125"
+                           Width="125"
+                           Source="{Binding CurrentLocation.ImageName}"/>
                 </Grid>
-                
-                
-                
+
+
+
             </Border>
-            
+
         </Grid>
-        
-        
+
+
         <Label Grid.Row="2" Grid.Column="0" Content="Inventory/Quests" Background="BurlyWood"></Label>
         <Label Grid.Row="2" Grid.Column="1" Content="Combat/Movement Controls" Background="Lavender"></Label>
-        
+
     </Grid>
 </Window>
