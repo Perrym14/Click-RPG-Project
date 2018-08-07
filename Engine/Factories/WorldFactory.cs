@@ -45,6 +45,9 @@ namespace Engine.Factories
                 "This is where the herbalist lives.", 
                 "/Engine;component/Images/Locations/HerbalistsHut.png");
 
+            // Add quest at Herbalist Hut
+            newWorld.LocationAt(0, 1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
+
             newWorld.AddLocation(0, 2, "Herb Garden", 
                 "This is where the herbs are.", 
                 "/Engine;component/Images/Locations/HerbalistsGarden.png");

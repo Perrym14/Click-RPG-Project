@@ -42,13 +42,20 @@
   <ItemGroup>
     <Compile Include="BaseNotificationClass.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
+    <Compile Include="Factories\MonsterFactory.cs" />
+    <Compile Include="Factories\QuestFactory.cs" />
     <Compile Include="Factories\WorldFactory.cs" />
     <Compile Include="Models\GameItem.cs" />
+    <Compile Include="Models\ItemQuantity.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Monster.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\QuestStatus.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomNumberGenerator.cs" />
     <Compile Include="ViewModels\GameSession.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +68,11 @@
     <Resource Include="Images\Locations\TownGate.png" />
     <Resource Include="Images\Locations\TownSquare.png" />
     <Resource Include="Images\Locations\Trader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Monsters\GiantSpider.png" />
+    <Content Include="Images\Monsters\Rat.png" />
+    <Content Include="Images\Monsters\Snake.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
