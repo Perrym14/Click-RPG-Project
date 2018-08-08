@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SOSCSRPG_First_Project"
+        xmlns:viewModels="clr-namespace:Engine.ViewModels;assembly=Engine"
+        d:DataContext="{d:DesignInstance viewModels:GameSession}"
         mc:Ignorable="d"
         FontSize="11pt"
         Title="MainWindow" Height="768" Width="1024">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
- 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -23,9 +25,12 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <!-- Menu -->
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Menu" Background="AliceBlue"></Label>
 
+        <!-- Player stats-->
         <Grid Grid.Row="1" Grid.Column="0" Background="Aquamarine">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -54,6 +59,7 @@
             <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Level}"/>
         </Grid>
 
+        <!-- Gameplay-->
         <Grid Grid.Row="1" Grid.Column="1" Background="Beige">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -65,6 +71,7 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Location information-->
             <Border 
                 Grid.Row="0" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
 
@@ -92,8 +99,44 @@
                            Source="{Binding CurrentLocation.ImageName}"/>
                 </Grid>
 
+            </Border>
+            
+            <!-- Monster information -->
+            <Border Grid.Row="1" Grid.Column="1"
+                    BorderBrush="Gainsboro"
+                    BorderThickness="1">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               HorizontalAlignment="Center"
+                               Height="Auto"
+                               Text="{Binding CurrentMonster.Name}"/>
+
+                    <Image Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Height="125"
+                           Width="125"
+                           Source="{Binding CurrentMonster.ImageName}"/>
+
+                    <StackPanel Grid.Row="2"
+                               Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                        <TextBlock> Current Hit Points:</TextBlock>
+                        <TextBlock Text="{Binding CurrentMonster.HitPoints}"/>
+                    </StackPanel>
 
 
+
+                </Grid>
+                
             </Border>
 
         </Grid>
@@ -110,7 +153,7 @@
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Name}"
                                                 Width="*"/>
-                            
+
                             <DataGridTextColumn Header="Price"
                                                 Binding="{Binding Price}"
                                                 Width="Auto"/>
@@ -138,7 +181,7 @@
 
         </Grid>
 
-        
+
         <Grid Grid.Row="2" Grid.Column="1" Background="Lavender">
 
             <Grid.RowDefinitions>
@@ -169,19 +212,19 @@
                         Content="North" 
                         Click="OnClick_MoveNorth" 
                         Visibility="{Binding HasLocationToNorth, Converter={StaticResource BooleanToVisibility}}"/>
-                
+
                 <Button Grid.Row="1"
                         Grid.Column="0" Height="25" Width="65" Margin="10" 
                         Content="West" 
                         Click="OnClick_MoveWest"
                          Visibility="{Binding HasLocationToWest, Converter={StaticResource BooleanToVisibility}}"/>
-                
+
                 <Button Grid.Row="1"
                         Grid.Column="2" Height="25" Width="65" Margin="10" 
                         Content="East" 
                         Click="OnClick_MoveEast"
                          Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"/>
-                
+
                 <Button Grid.Row="2" 
                         Grid.Column="1" Height="25" Width="65" Margin="10"
                         Content="South" 
@@ -190,9 +233,9 @@
 
 
             </Grid>
-            
+
         </Grid>
-        
+
 
     </Grid>
 </Window>

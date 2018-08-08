@@ -49,6 +49,7 @@
     <Compile Include="Models\ItemQuantity.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Monster.cs" />
+    <Compile Include="Models\MonsterEncounter.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\QuestStatus.cs" />
@@ -70,9 +71,9 @@
     <Resource Include="Images\Locations\Trader.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Monsters\GiantSpider.png" />
-    <Content Include="Images\Monsters\Rat.png" />
-    <Content Include="Images\Monsters\Snake.png" />
+    <Resource Include="Images\Monsters\GiantSpider.png" />
+    <Resource Include="Images\Monsters\Rat.png" />
+    <Resource Include="Images\Monsters\Snake.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
