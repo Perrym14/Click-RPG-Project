@@ -164,8 +164,10 @@
               Grid.Column="0" Background="BurlyWood">
 
             <TabControl>
+                <!-- Inventory Tab -->
                 <TabItem Header="Inventory">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory}" AutoGenerateColumns="False"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory}" 
+                              AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Description"
@@ -178,9 +180,8 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-            </TabControl>
 
-            <TabControl>
+                <!-- Quest Tab -->
                 <TabItem Header="Quests">
                     <DataGrid ItemsSource="{Binding CurrentPlayer.Quests}" AutoGenerateColumns="False"
                               HeadersVisibility="Column">
@@ -195,7 +196,12 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
+                
             </TabControl>
+
+            
+                
+            
 
         </Grid>
 
@@ -268,6 +274,11 @@
                         Content="West" 
                         Click="OnClick_MoveWest"
                          Visibility="{Binding HasLocationToWest, Converter={StaticResource BooleanToVisibility}}"/>
+
+                <Button Grid.Row="1" Grid.Column="1"
+                        Height="25" Width="65" Margin="10"
+                        Visibility="{Binding HasTrader, Converter={StaticResource BooleanToVisibility}}"
+                        Content="Trade"/>
 
                 <Button Grid.Row="1"
                         Grid.Column="2" Height="25" Width="65" Margin="10" 
