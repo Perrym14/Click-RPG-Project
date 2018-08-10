@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace Engine.Models
 {
-    public class Player : BaseNotificationClass
+    public class Player : LivingBeing
     {
         private string _name;
         private string _characterClass;
@@ -17,17 +17,6 @@ namespace Engine.Models
         private int _gold;
         private int _level;
 
-
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
 
         public string CharacterClass
         {
@@ -38,17 +27,6 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(CharacterClass));
             }
 
-        }
-
-
-        public int HitPoints
-        {
-            get { return _hitPoints; }
-            set
-            {
-                _hitPoints = value;
-                OnPropertyChanged(nameof(HitPoints));
-            }
         }
 
 
@@ -72,21 +50,6 @@ namespace Engine.Models
             }
         }
 
-
-        public int Gold
-        {
-            get { return _gold; }
-            set
-            {
-                _gold = value;
-                OnPropertyChanged(nameof(Gold));
-            }
-        }
-
-        public ObservableCollection<GameItem> Inventory { get; set; }
-
-        public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
-
         public ObservableCollection<QuestStatus> Quests { get; set; }
 
         public Player()
@@ -95,20 +58,6 @@ namespace Engine.Models
             Quests = new ObservableCollection<QuestStatus>();
         }
 
-        //Notifies the UI on changes to line 88: Weapons list.
-        public void AddItemToInventory(GameItem item)
-        {
-            Inventory.Add(item);
-
-            OnPropertyChanged(nameof(Weapons));
-        }
-
-        public void RemoveItemFromInventory(GameItem item)
-        {
-            Inventory.Remove(item);
-
-            OnPropertyChanged(nameof(Weapons));
-        }
 
         public bool HasAllTheseItems(List<ItemQuantity> items)
         {
