@@ -10,11 +10,8 @@ namespace Engine.Models
 {
     public class Player : LivingBeing
     {
-        private string _name;
         private string _characterClass;
         private int _experiencePoints;
-        private int _hitPoints;
-        private int _gold;
         private int _level;
 
 
