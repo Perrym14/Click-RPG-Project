@@ -14,6 +14,17 @@ namespace Engine.Models
         private int _experiencePoints;
         private int _level;
 
+        public Player(string name, string characterClass, int experiencePoints,
+            int maximumHitPoinrs, int currentHitPoints, int gold) :
+            base(name, maximumHitPoinrs, currentHitPoints, gold)
+        {
+            _characterClass = characterClass;
+            _experiencePoints = experiencePoints;
+
+            Quests = new ObservableCollection<QuestStatus>();
+        }
+        
+    
 
         public string CharacterClass
         {
@@ -48,13 +59,6 @@ namespace Engine.Models
         }
 
         public ObservableCollection<QuestStatus> Quests { get; set; }
-
-        public Player()
-        {
-            Inventory = new ObservableCollection<GameItem>();
-            Quests = new ObservableCollection<QuestStatus>();
-        }
-
 
         public bool HasAllTheseItems(List<ItemQuantity> items)
         {
