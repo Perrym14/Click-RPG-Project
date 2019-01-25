@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Engine.Models
 {
@@ -12,7 +9,8 @@ namespace Engine.Models
     {
         private string _characterClass;
         private int _experiencePoints;
-        
+        private int _currentHitPoints;
+
 
         public Player(string name, string characterClass, int experiencePoints,
             int maximumHitPoinrs, int currentHitPoints, int gold) :
@@ -20,11 +18,10 @@ namespace Engine.Models
         {
             _characterClass = characterClass;
             _experiencePoints = experiencePoints;
+            _currentHitPoints = currentHitPoints;
 
             Quests = new ObservableCollection<QuestStatus>();
         }
-        
-    
 
         public string CharacterClass
         {
@@ -36,7 +33,6 @@ namespace Engine.Models
             }
 
         }
-
 
         public int ExperiencePoints
 
@@ -51,12 +47,8 @@ namespace Engine.Models
                 SetLevelAndMaximumHitPoints();
             }
         }
-        
 
         public ObservableCollection<QuestStatus> Quests { get; }
-
-        public event EventHandler OnLeveledUp;
-
 
         public bool HasAllTheseItems(List<ItemQuantity> items)
         {
@@ -75,11 +67,14 @@ namespace Engine.Models
             ExperiencePoints += experiencePoints;
         }
 
+        //Handle level up
+        public event EventHandler OnLeveledUp;
+
         private void SetLevelAndMaximumHitPoints()
         {
             int originalLevel = Level;
 
-            Level = (ExperiencePoints / 100) + 1;
+            Level = (ExperiencePoints / 50) + 1;
 
             if (Level != originalLevel)
             {
@@ -88,5 +83,6 @@ namespace Engine.Models
                 OnLeveledUp?.Invoke(this, System.EventArgs.Empty);
             }
         }
+
     }
 }

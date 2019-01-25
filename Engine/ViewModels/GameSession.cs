@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Engine.Models;
+﻿using Engine.EventArgs;
 using Engine.Factories;
-using System.ComponentModel;
-using Engine.EventArgs;
+using Engine.Models;
+using System;
+using System.Linq;
 
 namespace Engine.ViewModels
 {
@@ -23,11 +19,11 @@ namespace Engine.ViewModels
 
         public Player CurrentPlayer
         {
-            get { return _currentPlayer;}
+            get { return _currentPlayer; }
 
             set
             {
-                if(_currentPlayer !=null)
+                if (_currentPlayer != null)
                 {
                     _currentPlayer.OnLeveledUp -= OnCurrentPlayerLeveledUp;
                     _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
@@ -35,7 +31,7 @@ namespace Engine.ViewModels
 
                 _currentPlayer = value;
 
-                if(_currentPlayer != null)
+                if (_currentPlayer != null)
                 {
                     _currentPlayer.OnLeveledUp += OnCurrentPlayerLeveledUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
@@ -55,12 +51,14 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToWest));
                 OnPropertyChanged(nameof(HasLocationToNorth));
                 OnPropertyChanged(nameof(HasLocationToSouth));
+                OnPropertyChanged(nameof(IsHome));
 
                 CompleteQuestsAtLocation();
                 GivePlayerQuestsAtLocation();
                 GetMonsterAtLocation();
 
                 CurrentTrader = CurrentLocation.TraderHere;
+
             }
         }
 
@@ -77,7 +75,7 @@ namespace Engine.ViewModels
 
                 _currentMonster = value;
 
-                if(_currentMonster != null)
+                if (_currentMonster != null)
                 {
                     _currentMonster.OnKilled += OnCurrentMonsterKilled;
 
@@ -114,21 +112,23 @@ namespace Engine.ViewModels
 
         public bool HasLocationToWest =>
         CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
-            
+
         public bool HasLocationToSouth =>
          CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
-            
+
 
         public bool HasMonster => CurrentMonster != null;
 
         public bool HasTrader => CurrentTrader != null;
+
+        public bool IsHome => Convert.ToBoolean(CurrentLocation.XCoordinate == 0 && CurrentLocation.YCoordinate == -1);
 
 
 
         public GameSession()
         {
             CurrentPlayer = new Player("Hero", "Fighter", 0, 10, 10, 50);
-        
+
             if (!CurrentPlayer.Weapons.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
@@ -137,7 +137,14 @@ namespace Engine.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
+        }
 
+        public void Rest()
+        {
+            if (CurrentPlayer.CurrentHitPoints < CurrentPlayer.MaximumHitPoints)
+            {
+                CurrentPlayer.CompletelyHeal();
+            }
         }
 
         public void MoveNorth()
@@ -174,18 +181,18 @@ namespace Engine.ViewModels
 
         private void CompleteQuestsAtLocation()
         {
-            foreach(Quest quest in CurrentLocation.QuestsAvailableHere)
+            foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
             {
                 QuestStatus questToComplete = CurrentPlayer.Quests.FirstOrDefault(q => q.PlayerQuest.ID == quest.ID && !q.IsCompleted);
 
-                if(questToComplete !=null)
+                if (questToComplete != null)
                 {
-                    if(CurrentPlayer.HasAllTheseItems(quest.ItemsToComplete))
+                    if (CurrentPlayer.HasAllTheseItems(quest.ItemsToComplete))
                     {
                         // Remove the quest completion items from the player's inventory
-                        foreach(ItemQuantity itemQuantity in quest.ItemsToComplete)
+                        foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
                         {
-                            for(int i = 0; i < itemQuantity.Quantity; i++)
+                            for (int i = 0; i < itemQuantity.Quantity; i++)
                             {
                                 CurrentPlayer.RemoveItemFromInventory(CurrentPlayer.Inventory.First(item => item.ItemTypeID == itemQuantity.ItemID));
                             }
@@ -201,15 +208,15 @@ namespace Engine.ViewModels
 
                         RaiseMessage($"You recieve {quest.RewardExperiencePoints} experience points.");
                         CurrentPlayer.AddExperience(quest.RewardExperiencePoints);
-                        
 
-                        foreach(ItemQuantity itemQuanity in quest.RewardItems)
+
+                        foreach (ItemQuantity itemQuanity in quest.RewardItems)
                         {
                             GameItem rewardItem = ItemFactory.CreateGameItem(itemQuanity.ItemID);
 
                             RaiseMessage($"You recieve a {rewardItem.Name}");
                             CurrentPlayer.AddItemToInventory(rewardItem);
-                            
+
                         }
 
                         //Mark quest as completed
@@ -232,7 +239,7 @@ namespace Engine.ViewModels
                     RaiseMessage(quest.Description);
 
                     RaiseMessage("Return with:");
-                    foreach(ItemQuantity itemQuantity in quest.ItemsToComplete)
+                    foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
                     {
                         RaiseMessage($"   {itemQuantity.Quantity} {ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
                     }
@@ -240,7 +247,7 @@ namespace Engine.ViewModels
                     RaiseMessage(" And you will recieve:");
                     RaiseMessage($"     {quest.RewardExperiencePoints} experience points");
                     RaiseMessage($"     {quest.RewardGold} gold");
-                    foreach(ItemQuantity itemQuanity in quest.RewardItems)
+                    foreach (ItemQuantity itemQuanity in quest.RewardItems)
                     {
                         RaiseMessage($"     {itemQuanity.Quantity} {ItemFactory.CreateGameItem(itemQuanity.ItemID).Name}");
                     }
@@ -294,7 +301,7 @@ namespace Engine.ViewModels
                     RaiseMessage($"{CurrentMonster.Name} did {damageToPlayer} points of damage.");
                     CurrentPlayer.TakeDamage(damageToPlayer);
                 }
-            }     
+            }
         }
 
         private void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
@@ -317,7 +324,7 @@ namespace Engine.ViewModels
             RaiseMessage($"You recieve {CurrentMonster.Gold} gold.");
             CurrentPlayer.RecieveGold(CurrentMonster.Gold);
 
-            foreach(GameItem gameItem in CurrentMonster.Inventory)
+            foreach (GameItem gameItem in CurrentMonster.Inventory)
             {
                 RaiseMessage($"You recieve one {gameItem.Name}.");
                 CurrentPlayer.AddItemToInventory(gameItem);

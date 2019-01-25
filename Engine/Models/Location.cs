@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Engine.Factories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Engine.Factories;
 
 namespace Engine.Models
 {
@@ -21,7 +18,7 @@ namespace Engine.Models
 
         public Trader TraderHere { get; set; }
 
-        public Location(int xCoordinate,int yCoordinate, string name, string description, string imageName)
+        public Location(int xCoordinate, int yCoordinate, string name, string description, string imageName)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
@@ -33,7 +30,7 @@ namespace Engine.Models
 
         public void AddMonster(int monsterID, int chanceOfEncountering)
         {
-            if(MonstersHere.Exists(m => m.MonsterID == monsterID))
+            if (MonstersHere.Exists(m => m.MonsterID == monsterID))
             {
                 // This monster has already been added to this location.
                 // So, overwrite the ChanceOfEncountering with the new number.
@@ -48,7 +45,7 @@ namespace Engine.Models
 
         public Monster GetMonster()
         {
-            if(!MonstersHere.Any())
+            if (!MonstersHere.Any())
             {
                 return null;
             }
@@ -65,16 +62,16 @@ namespace Engine.Models
             // that is the monster to rturn.
             int runningTotal = 0;
 
-            foreach(MonsterEncounter monsterEncounter in MonstersHere)
+            foreach (MonsterEncounter monsterEncounter in MonstersHere)
             {
                 runningTotal += monsterEncounter.ChanceOfEncountering;
 
-                if(randomNumber <= runningTotal)
+                if (randomNumber <= runningTotal)
                 {
                     return MonsterFactory.GetMonster(monsterEncounter.MonsterID);
                 }
             }
-            
+
             // If there was a problem, return the last monster in the list.
             return MonsterFactory.GetMonster(MonstersHere.Last().MonsterID);
         }

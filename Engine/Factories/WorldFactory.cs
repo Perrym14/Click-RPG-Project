@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Engine.Models;
+﻿using Engine.Models;
 
 namespace Engine.Factories
 {
@@ -29,28 +24,28 @@ namespace Engine.Factories
                 "This is your home.",
                 "Home.png");
 
-            newWorld.AddLocation(0, 0, "Town Square", 
+            newWorld.AddLocation(0, 0, "Town Square",
                 "You see a fountain.",
                 "TownSquare.png");
 
-            newWorld.AddLocation(-1, 0, "Trading Shop", 
-                "Susan's shop.", 
+            newWorld.AddLocation(-1, 0, "Trading Shop",
+                "Susan's shop.",
                 "Trader.png");
 
             newWorld.LocationAt(-1, 0).TraderHere = TraderFactory.GetTraderByName("Susan");
 
-            newWorld.AddLocation(1, 0, "Town Gate", 
-                "This is the town gate", 
+            newWorld.AddLocation(1, 0, "Town Gate",
+                "This is the town gate",
                 "TownGate.png");
 
-            newWorld.AddLocation(2, 0, "SpiderForest", 
-                "This is where spiders dwell.", 
+            newWorld.AddLocation(2, 0, "SpiderForest",
+                "This is where spiders dwell.",
                 "SpiderForest.png");
 
             newWorld.LocationAt(2, 0).AddMonster(3, 100);
 
-            newWorld.AddLocation(0, 1, "Herbalist's Hut", 
-                "This is where the herbalist lives.", 
+            newWorld.AddLocation(0, 1, "Herbalist's Hut",
+                "This is where the herbalist lives.",
                 "HerbalistsHut.png");
 
             newWorld.LocationAt(0, 1).TraderHere = TraderFactory.GetTraderByName("Pete the Herbalist");
@@ -58,8 +53,8 @@ namespace Engine.Factories
             // Add quest at Herbalist Hut
             newWorld.LocationAt(0, 1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
 
-            newWorld.AddLocation(0, 2, "Herb Garden", 
-                "This is where the herbs are.", 
+            newWorld.AddLocation(0, 2, "Herb Garden",
+                "This is where the herbs are.",
                 "HerbalistsGarden.png");
 
             newWorld.LocationAt(0, 2).AddMonster(1, 100);
